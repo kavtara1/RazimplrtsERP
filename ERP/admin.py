@@ -17,4 +17,3 @@ class StockAdmin(admin.ModelAdmin):
     list_display = ['car', 'part_name', 'part_number', 'barcode', 'selling_price', 'note']
     autocomplete_fields = ['part_number']
     search_fields = ['barcode']
-    # readonly_fields = ['part_name']
