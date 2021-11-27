@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -39,6 +41,7 @@ class Stock(models.Model):
     note = models.TextField(default=None)
     selling_price = models.IntegerField(default=0)
     amount_in_stock = models.IntegerField(default=1)
+    shelf = models.CharField(max_length=10, default=1)
 
 
 @receiver(post_save, sender=Stock, dispatch_uid="update_part_number")
@@ -47,10 +50,18 @@ def update_part_number(sender, **kwargs):
     part_number = getattr(obj1, 'part_number')
     obj2 = Parts.objects.filter(part_number=part_number).values('part_name')
     part_name_value = (obj2[0]['part_name'])
-    print(part_name_value)
     x = Stock.objects.latest('id')
     latest_id = x.id
     Stock.objects.filter(id=latest_id).update(part_name=part_name_value)
-    pass
+
+
+class Sales(models.Model):
+    car_id = models.IntegerField(default=0, blank=False)
+    part_number_id = models.IntegerField(default=0,blank=False)
+    barcode = models.IntegerField(default=0, blank=False)
+    note = models.CharField(max_length=100, blank=True, default=None)
+    price = models.IntegerField(default=0, blank=False)
+    sell_date = models.DateField(default=datetime.date.today())
+
 
 

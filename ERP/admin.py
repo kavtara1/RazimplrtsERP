@@ -14,6 +14,6 @@ class PartsAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
-    list_display = ['car', 'part_name', 'part_number', 'barcode', 'selling_price', 'note']
+    list_display = ['car', 'part_name', 'part_number', 'barcode', 'selling_price', 'note', 'shelf']
     autocomplete_fields = ['part_number']
     search_fields = ['barcode']
