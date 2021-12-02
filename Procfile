@@ -1,1 +1,1 @@
-web: gunicorn soso-erp-system.wsgi
+web: gunicorn soso-erp-system:app
